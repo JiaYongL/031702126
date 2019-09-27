@@ -2,10 +2,10 @@ import re
 import json
 
 ret = []
-direct_city={"北京","天津","上海","重庆"}
-region_dict={"内蒙古":"内蒙古自治区","广西":"广西壮族自治区","宁夏":"宁夏回族自治区","新疆":"新疆维吾尔自治区","西藏":"西藏自治区"}
-help_Lv3 = {"市","区","县"}
-help_Lv4 = {"街道","镇","乡"}
+direct_city={"北京", "天津", "上海", "重庆"}
+region_dict={"内蒙古": "内蒙古自治区", "广西": "广西壮族自治区", "宁夏": "宁夏回族自治区", "新疆": "新疆维吾尔自治区", "西藏": "西藏自治区"}
+help_Lv3 = {"市", "区", "县"}
+help_Lv4 = {"街道", "镇", "乡"}
 
 def getNums(info):
     res = re.search("[0-9]{11}", info)
@@ -17,6 +17,7 @@ def delNums(info):
     return re.sub("[0-9]{11}", "", info)
 
 def getLv6(cur_addr):
+    # print('Lv6 ' + cur_addr)
     res = re.match(r"[0-9]+号?", cur_addr)
     if res:
         ret[5] = res.group(0)
@@ -25,7 +26,7 @@ def getLv6(cur_addr):
     return
 
 def getLv5(cur_addr):
-    #print('Lv5' + cur_addr)
+    # print('Lv5' + cur_addr)
     if lv == 1:
         ret[4] = cur_addr
         return
@@ -35,9 +36,12 @@ def getLv5(cur_addr):
         cur_addr = re.sub(r".*(路|街|巷|弄)", '', cur_addr)
         getLv6(cur_addr)
         return
-
+    else:
+        getLv6(cur_addr)
 
 def getLv4(cur_addr, cur_path):
+    #print(cur_addr)
+    #print('ret[2] = ' + ret[2])
     if ret[2] == '':
         for tem in help_Lv4:
             p = cur_addr.find(tem)
@@ -62,6 +66,7 @@ def getLv4(cur_addr, cur_path):
     return
 
 def getLv3(cur_addr, cur_path):
+    #print('cur_addr = ' + cur_addr)
     for key in cur_path:
         city = cur_path[key]['n']
         pos = cur_addr.find(city)
@@ -94,7 +99,7 @@ def getLv1(cur_addr, cur_path):
                 if prov in direct_city:
                     ret[0] = prov
                     ret[1] = prov + "市"
-                    getLv2(cur_addr[pos + len(prov):], cur_path[key]['c'])
+                    getLv2(cur_addr, cur_path[key]['c'])
                     break
                 else:
                     ok = True
@@ -105,7 +110,7 @@ def getLv1(cur_addr, cur_path):
                             ret[1] = se
                     if ok:
                         ret[0] = prov + "省"
-                getLv2(cur_addr[pos + len(prov):], cur_path[key]['c'])
+                getLv2(cur_addr, cur_path[key]['c'])
     except:
         return
 
@@ -113,7 +118,7 @@ input_json = open(r'E:/031702126/031702126.json', 'rb')
 
 data = json.load(input_json)
 out_list = []
-# in_info = open(r'C:/031702126/in.txt', 'r', encoding='utf-8').read()
+#in_info = open(r'C:/031702126/in.txt', 'r', encoding='utf-8').read()
 in_info = input()
 in_list = in_info.split()
 
@@ -148,6 +153,5 @@ for info in in_list:
         print(out_json)
     except:
         continue
-# print(out_list)
-# out_file = open(r'C:/031702126/Address/out.txt', 'w', encoding='utf-8')
-# out_file.write(json.dumps(out_list, indent=4).encode('utf-8').decode('unicode_escape'))
+#out_file = open(r'C:/031702126/out.txt', 'w', encoding='utf-8')
+#out_file.write(json.dumps(out_list, indent=4).encode('utf-8').decode('unicode_escape'))
