@@ -122,7 +122,6 @@ out_list = []
 
 while 1:
     info = input()
-    print(info)
     if info == 'END':
         break
     try:
