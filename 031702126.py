@@ -119,10 +119,11 @@ input_json = open(r'E:/031702126/031702126.json', 'rb')
 data = json.load(input_json)
 out_list = []
 #in_info = open(r'C:/031702126/in.txt', 'r', encoding='utf-8').read()
-in_info = input()
-in_list = in_info.split()
 
-for info in in_list:
+while 1:
+    info = input()
+    if info == 'END':
+        break
     try:
         ret.clear()
         for i in range(10):
@@ -153,5 +154,7 @@ for info in in_list:
         print(out_json)
     except:
         continue
+#out_file = open(r'C:/031702126/out.txt', 'w', encoding='utf-8')
+#out_file.write(json.dumps(out_list, indent=4).encode('utf-8').decode('unicode_escape'))
 #out_file = open(r'C:/031702126/out.txt', 'w', encoding='utf-8')
 #out_file.write(json.dumps(out_list, indent=4).encode('utf-8').decode('unicode_escape'))
