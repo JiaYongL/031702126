@@ -84,6 +84,8 @@ def getLv2(cur_addr, cur_path):
         pos = cur_addr.find(country)
         if pos >= 0:
             ret[1] = country + "市"
+            if cur_addr[pos + len(country)] == '市':
+                pos += 1
             getLv3(cur_addr[pos + len(country):], cur_path[key]['c'])
             return
     for key in cur_path:
@@ -154,7 +156,5 @@ while 1:
         print(out_json)
     except:
         continue
-#out_file = open(r'C:/031702126/out.txt', 'w', encoding='utf-8')
-#out_file.write(json.dumps(out_list, indent=4).encode('utf-8').decode('unicode_escape'))
 #out_file = open(r'C:/031702126/out.txt', 'w', encoding='utf-8')
 #out_file.write(json.dumps(out_list, indent=4).encode('utf-8').decode('unicode_escape'))
