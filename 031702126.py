@@ -116,7 +116,6 @@ def getLv1(cur_addr, cur_path):
                             cur_addr = cur_addr[pos + len(prov) + 1:]
                         else:
                             cur_addr = cur_addr[pos + len(prov):]
-                        print(cur_addr)
                 getLv2(cur_addr, cur_path[key]['c'])
     except:
         return
