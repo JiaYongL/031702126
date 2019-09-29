@@ -112,6 +112,13 @@ def getLv1(cur_addr, cur_path):
                             ret[1] = se
                     if ok:
                         ret[0] = prov + "省"
+                        print(prov)
+                        print(cur_addr[pos + len(prov)])
+                        if cur_addr[pos + len(prov)] == '省':
+                            cur_addr = cur_addr[pos + len(prov) + 1:]
+                        else:
+                            cur_addr = cur_addr[pos + len(prov):]
+                        print(cur_addr)
                 getLv2(cur_addr, cur_path[key]['c'])
     except:
         return
