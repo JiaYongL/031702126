@@ -120,7 +120,7 @@ def getLv1(cur_addr, cur_path):
     except:
         return
 
-input_json = open(r'031702126/031702126.json', 'rb')
+input_json = open(r'E:/031702126/031702126.json', 'rb')
 
 data = json.load(input_json)
 out_list = []
