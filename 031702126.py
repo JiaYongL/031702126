@@ -121,8 +121,8 @@ def getLv1(cur_addr, cur_path):
         return
 
 input_json = open('031702126.json', 'rb')
-
-data = json.load(input_json)
+input_Json = input_json.read() 
+data = json.load(input_Json)
 out_list = []
 #in_info = open(r'C:/031702126/in.txt', 'r', encoding='utf-8').read()
 
